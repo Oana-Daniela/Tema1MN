@@ -1,0 +1,103 @@
+Puisor Oana-Daniela
+Grupa 311 CD
+
+		Tema 1-Metode Numerice
+
+
+Exercitiul 1 :
+	
+	Pentru primul exercitiu al temei,cel al bazei,m-am folosit de codurile 
+ASCII ale caracterelor pentru a putea rezolva cerinta.Modul meu de rezolvare a 
+avut la baza ideea de a transforma numarul dat,reprezentat in baza data(b1),mai
+intai in baza 10,pentru a putea converti ulterior,numarul in baza ceruta(b2).
+Pentru ce este descris mai sus am avut nevoie neaparat de lungimea sirului de 
+numere (sau caractere) date ca input,pentru a-l putea parcurge.Daca unul dintre
+ caractere are codul ASCII mai mare decat cel al lui 'a'(97),atunci,pentru a-i afla
+ echivanetul in numar intr-o baza,ii voi scadea valoarea 97.
+	Prima data nu am tinut cont ca simbolurile unei baze pe langa ca sunt 
+caractere,mai sunt si numere de la 0 la 9,toate fiind simboluri distincte si am 
+uitat sa mai adaug valoarea 10(cate numere are baza).In caz contrar ,daca un 
+caracter are codul ASCII mai mic decat 'a',atunci voi scadea codul lui '0'
+(Diferenta dintre codul numarului si codul lui 0 imi va da chiar cifra).
+	Dupa aflarea simbolurilor bazei, am aflat cum se scrie numarul dat 
+in baza 10(variabila suma).
+Dupa ce am aflat suma,nu a mai ramas decat sa aflu resturile impartirilor 
+succesive ale ei.Aici am aplicat tot acelasi principiu care implica codurile
+ ASCII doar ca invers(sa codific numerele mai mari ca 9 in caractere).La 
+fiecare calculare a unui rest,il voi atasa vectorului v.Pentru urmatoarele 
+resturi voi avea nevoie de partea intreaga a sumei impartite succesiv la b2.
+
+Exercitiul 2:
+
+	Pentru acest exercitiu,am lucrat pe 2 parti: mai intai am construit
+ partea superioara a matricei zigzag,cu tot cu diagonala secundara,si dupa 
+partea inferioara.
+	Parcurgand matricea si tinand cont de indecsi,am observat ca suma 
+indecsilor elementelor de pe drumul oblic este aceeasi(exemplu primul drum
+ oblic: Z(1,2),Z(2,1)).Astfel fiecarui drum pe diagonala i-am asociat un 
+numar k.Daca k este par,inseamna ca drumul parcurs merge in jos(mai intai
+ trece prin Z(1,2) si apoi Z(2,1)),iar daca este impar,merge in sus(Z(3,1),
+Z(2,2),Z(1,3)).
+	Pe ambele cazuri de par si impar,voi construi astfel matricea:La 
+fiecare iteratie a lui k,voi calcula suma de indecsi(k + indicele coloanei
+ sau liniei 1-capetele drumurilor).Din aceasta suma de indecsi voi calcula 
+astfel si indicii elementelor de pe parcursul drumului(Z(2,2),de exemplu).
+	Metoda prezentata anterior a functionat pentru partea superioara 
+a matricei si diagonala secundara.Pentru restul matricei am procedat asemanator.
+
+Exercitiul 3:
+	
+	Pentru functia morse_decode() nu am facut decat sa parcurg arborele 
+scris la prima cerinta.Daca primul caracter citit din sirul dat ca input este
+ '.' atunci voi parcurge ramura stanga a arborelui.Daca este '-' atunci parcurg
+ ramura dreapta.Aceeasi idee se aplica pentru tote nodurile in care ajung.De 
+asemenea am mai tratat si cazurile de eroare.
+	
+Exercitiul 4:
+
+	Pentru jocul de X so 0 am creat functii separate pentru fiecare 
+caracteristica a jocului.
+	Prima functie implementata a fost cea de afisare
+ a matricei.Pentru ea am stabilit o conventie: pentru o casuta libera din 
+tabla in care inca nu s-a efectuat o mutare,i-am atribuit valoarea 0.Daca 
+utilizatorul a ales o casuta,atunci ii voi atribui ei valoarea 1.Daca calculatorul 
+a ocupat o alta casuta a tablei atunci ii voi atribui valoarea 4(initial 
+pusesem 2,dar valoarea 4 imi era mai folositoare pentu functia poate_castiga()).
+	Urmatoarea functie a fost ocupa_pozitie,in care am cititi inputurile
+corespunzatoare liniilor si coloanelor in care utilizatorul alege unde 
+sa faca mutarea.
+	Tot o conventie am stabilit si pentru indicii de linie si coloana 
+liberi ai matricei,lor le-am atribuit valoarea -1.
+	In cazul in care utilizatorul alege un indice de coloana si de linie,ei
+ neaparat trebuie sa fie in intervalul [1,3],daca nu atunci se raporteaza ca pozitia
+ ceruta  este invalida.
+	Daca s-au ales indici de linie si de coloana corecti,dar locul este ocupat
+(~= 0) atunci se reintroduc indici noi.
+	Am folosit functia spatii_libere pentru a vedea cand jocul se termina.
+In ea doar verific daca mai sunt casute cu valoarea 0(libere).
+	In functia verifica_castigator parcurg toate cele 8 cazuri de castig 
+(in care se gasesc aceleasi valori ori pe linii ori pe coloane,ori pe cele 
+2 diagonale).Daca se raspecta una dintre conditiile din functie,pentru a returna
+ castigatorul returnez valoarea unei casute din cele 3 cu valori identice,daca nu
+ returnez 0,adica casuta libera.
+	Functiile mutare_calculator si poate_castiga sunt cele mai importante.
+Strategia de blocare pe care am abordat-o este urmatoarea:in cazul in care 
+M(2,2) nu este aleasa de utilizator,neaparat calculatorul o va alege(fara aceasta
+ conditie blocarea nu functiona).Daca M(2,2) nu este libera atunci calculatorul va
+ face mutarea pe prima casuta pe care o gaseste cand parcurge matricea de 3X3.Inainte
+ de ce este decris trebuie sa se  verifice daca exista posibilitatea,ori a 
+calculatorului,ori a utilizatorului de a castiga.
+	Posibilitatea respectiva este conditionata de existenta a doua casute 
+adiacente,pe linie,coloana sau diagonala cu aceeasi valoare,indiferent daca este 
+vorba de casutele din capete(sau colturi),sau cea din mijloc cu cu una dintr-un 
+capat(colt).Am ales valoare 4 pentru calculator pentru a calcula suma 
+celor 3 casute de pe linii/coloane/diagonale.Daca suma este de 8,inseamna ca 
+sistemul poate castiga,deci ca sa fie blocat voi pune in casuta libera ramasa
+ 1.Daca suma este 2,utilizatorul poate castiga,calculatorul pune 4.
+	Daca alegeam valoare 2 pentru calculator cazul  
+(|_2_|_0_|_0_|) avea aceesi suma cu un cazul |_1_|_1_|_0_|.Cu 4 
+devine (|_4_|_0_|_0_|),iar (|_1_|_1_|_0_|) este diferit.
+
+	
+
+ 
